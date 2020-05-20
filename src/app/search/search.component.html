@@ -1,4 +1,13 @@
-<h3>Search results</h3>
-<ul>
+<form #searchForm="ngForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput required #searchQuery="ngModel" [(ngModel)]="search" name="search">
+  </mat-form-field>
+  <button mat-button>Search</button>
+</form>
 
+<ul>
+  <li *ngFor="let page of results">
+    <a [routerLink]="'/page/' + page.id">{{page.title}}</a>
+  </li>
 </ul>

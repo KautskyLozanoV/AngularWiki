@@ -13,6 +13,7 @@ export class PageComponent implements OnInit, OnDestroy {
   public page: Page;
   pageSub: Subscription;
 
+
   constructor(public route: ActivatedRoute, private pageService: PageService) { }
   ngOnDestroy(): void {
     this.pageSub.unsubscribe();
@@ -28,7 +29,8 @@ export class PageComponent implements OnInit, OnDestroy {
             title: id.replace('_', ' '),
             content: null,
             id: null,
-            imagePath: null
+            imagePath: null,
+            changeDescription: null,
           };
         });
       } else {
@@ -36,7 +38,8 @@ export class PageComponent implements OnInit, OnDestroy {
           title: 'mock title',
           content: 'mock content',
           id: 'mockid',
-          imagePath: 'mock'
+          imagePath: 'mock',
+          changeDescription: 'mock'
         };
       }
     });

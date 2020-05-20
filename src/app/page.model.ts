@@ -1,6 +1,7 @@
-export interface Page {
+export class Page {
   title: string
   content: string
-  id: string,
+  id: string
   imagePath: string
+  changeDescription: string
 }

@@ -18,4 +18,15 @@ export class PageService {
     return this.http.get<Page>(this.url + id);
   }
 
+  searchPages(searchQuery: string) {
+    return this.http.get<Page[]>(this.url + '?query=' + searchQuery);
+  }
+
+  addPage(page: Page){
+    this.http.post<Page>(this.url, page)
+    .subscribe(data => {
+      this.router.navigate(["page/" + data.id])
+    })
+  }
+
 }

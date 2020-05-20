@@ -1,0 +1,16 @@
+<form #pageForm="ngForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput required #pageTitle="ngModel" [(ngModel)]="page.title" name="title">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Change description</mat-label>
+    <input matInput #pageChangeDescription="ngModel" [(ngModel)]="page.changeDescription" name="change">
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <textarea matInput required #pageContent="ngModel" [(ngModel)]="page.content" name="content"></textarea>
+  </mat-form-field>
+  <button mat-button>Save</button>
+</form>

@@ -15,7 +15,8 @@ import { PageComponent } from './page/page.component';
 import { DiffComponent } from './diff/diff.component';
 import { HistoryComponent } from './history/history.component'
 import { HttpClientModule } from '@angular/common/http'
-
+import { FormsModule }   from '@angular/forms';
+import { SaveComponent } from './page/save/save.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http'
     SearchComponent,
     PageComponent,
     DiffComponent,
-    HistoryComponent
+    HistoryComponent,
+    SaveComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http'
     MatToolbarModule,
     MatButtonModule,
     HttpClientModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

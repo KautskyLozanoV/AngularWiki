@@ -1,8 +1,8 @@
 <h1>{{ page?.title }}</h1>
-<div *ngIf="page.id">
-  <div >
+<div *ngIf="page?.id">
+  <div>
     <button mat-button color="primary">Edit</button>
-    <button mat-button >View History</button>
+    <button mat-button>View History</button>
   </div>
   <p>{{page?.content}}</p>
   <div class="img">
@@ -10,6 +10,6 @@
   </div>
 </div>
 
-<mat-error *ngIf="!page.id">
-This page doesn't exist yet
+<mat-error *ngIf="!page?.id">
+  This page doesn't exist yet
 </mat-error>
