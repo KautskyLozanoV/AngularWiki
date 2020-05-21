@@ -15,7 +15,7 @@ export class SaveComponent implements OnInit {
     this.page = new Page();
   }
 
-  onSubmit(){
+  onSubmit() {
     this.pageService.addPage(this.page);
   }
 }

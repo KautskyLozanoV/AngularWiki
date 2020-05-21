@@ -15,8 +15,10 @@ import { PageComponent } from './page/page.component';
 import { DiffComponent } from './diff/diff.component';
 import { HistoryComponent } from './history/history.component'
 import { HttpClientModule } from '@angular/common/http'
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { SaveComponent } from './page/save/save.component';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { DemoComponent } from './demo/demo.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { SaveComponent } from './page/save/save.component';
     PageComponent,
     DiffComponent,
     HistoryComponent,
-    SaveComponent
+    SaveComponent,
+    DemoComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,29 @@ import { SaveComponent } from './page/save/save.component';
     MatButtonModule,
     HttpClientModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MarkdownModule.forRoot({
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          tokenizer: {
+            link(src) {
+              const match = src.match(/^\[\[(\w)+\]\]$/);
+              if (match) {
+                return {
+                  type: 'link',
+                  raw: match[0],
+                  href: '',
+                  title: null,
+                  text: match[1].trim()
+                };
+              }
+              return false;
+            }
+          }
+        }
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

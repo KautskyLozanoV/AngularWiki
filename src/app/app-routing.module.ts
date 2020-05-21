@@ -4,6 +4,7 @@ import { MainComponent } from './main/main.component';
 import { SearchComponent } from './search/search.component';
 import { PageComponent } from './page/page.component';
 import { SaveComponent } from './page/save/save.component';
+import { DemoComponent } from './demo/demo.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: 'page/save', component: SaveComponent},
   { path: 'page/save/:id', component: SaveComponent},
   { path: 'page/:id', component: PageComponent},
-
+  { path: 'demo', component: DemoComponent},
 ];
 
 @NgModule({

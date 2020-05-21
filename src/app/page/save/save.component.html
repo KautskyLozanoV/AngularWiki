@@ -4,13 +4,14 @@
     <input matInput required #pageTitle="ngModel" [(ngModel)]="page.title" name="title">
   </mat-form-field>
   <br>
-  <mat-form-field>
+  <mat-form-field *ngIf="page.id">
     <mat-label>Change description</mat-label>
     <input matInput #pageChangeDescription="ngModel" [(ngModel)]="page.changeDescription" name="change">
   </mat-form-field>
   <br>
-  <mat-form-field appearance="fill">
-    <textarea matInput required #pageContent="ngModel" [(ngModel)]="page.content" name="content"></textarea>
-  </mat-form-field>
+  <textarea matInput required #pageContent="ngModel" class="variable-textarea" [(ngModel)]="page.content" name="content"></textarea>
+  <markdown class="variable-binding" [data]="page.content"></markdown>
+  <br>
   <button mat-button>Save</button>
+
 </form>
