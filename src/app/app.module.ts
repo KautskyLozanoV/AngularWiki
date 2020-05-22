@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { SaveComponent } from './page/save/save.component';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { DemoComponent } from './demo/demo.component';
+import { tokenizer } from './tokenizer';
 
 @NgModule({
   declarations: [
@@ -45,21 +46,7 @@ import { DemoComponent } from './demo/demo.component';
       markedOptions: {
         provide: MarkedOptions,
         useValue: {
-          tokenizer: {
-            link(src) {
-              const match = src.match(/^\[\[(\w)+\]\]$/);
-              if (match) {
-                return {
-                  type: 'link',
-                  raw: match[0],
-                  href: '',
-                  title: null,
-                  text: match[1].trim()
-                };
-              }
-              return false;
-            }
-          }
+          tokenizer: tokenizer
         }
       }
     })
