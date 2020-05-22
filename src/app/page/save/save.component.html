@@ -9,8 +9,8 @@
     <input matInput #pageChangeDescription="ngModel" [(ngModel)]="page.changeDescription" name="change">
   </mat-form-field>
   <br>
-  <!-- <textarea matInput required #pageContent="ngModel" class="variable-textarea" [(ngModel)]="page.content" name="content"></textarea> -->
-  <!-- <markdown class="variable-binding" [data]="page.content"></markdown> -->
+  <textarea matInput required #pageContent="ngModel" class="variable-textarea" [(ngModel)]="page.content" name="content"></textarea>
+  <app-markdown class="variable-binding" [text]="page.content"></app-markdown>
   <br>
   <button mat-button>Save</button>
 

@@ -17,9 +17,9 @@ import { HistoryComponent } from './history/history.component'
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { SaveComponent } from './page/save/save.component';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { DemoComponent } from './demo/demo.component';
 import { tokenizer } from './tokenizer';
+import { MarkdownComponent } from './markdown/markdown.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { tokenizer } from './tokenizer';
     DiffComponent,
     HistoryComponent,
     SaveComponent,
-    DemoComponent
+    DemoComponent,
+    MarkdownComponent
   ],
   imports: [
     BrowserModule,
@@ -42,14 +43,6 @@ import { tokenizer } from './tokenizer';
     HttpClientModule,
     MatInputModule,
     FormsModule,
-    MarkdownModule.forRoot({
-      markedOptions: {
-        provide: MarkedOptions,
-        useValue: {
-          tokenizer: tokenizer
-        }
-      }
-    })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@
     <button mat-button color="primary">Edit</button>
     <button mat-button>View History</button>
   </div>
-  <markdown [data]="page.content"></markdown>
+  <app-markdown [text]="page.content"></app-markdown>
   <div class="img">
     <img [src]="page?.imagePath" [alt]="page?.title">
   </div>
