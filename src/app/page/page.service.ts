@@ -8,11 +8,8 @@ import { Page } from '../page.model';
 @Injectable({ providedIn: 'root' })
 export class PageService {
   private url = "http://localhost:3000/api/pages/";
-  private posts: Page[] = [];
-  private postsUpdated = new Subject<{ posts: Page[], total: number }>();
 
   constructor(private http: HttpClient, private router: Router) { }
-
 
   getPage(id: string) {
     return this.http.get<Page>(this.url + id);
@@ -27,6 +24,17 @@ export class PageService {
     .subscribe(data => {
       this.router.navigate(["page/" + data.id])
     })
+  }
+
+  updatePage(page: Page){
+    this.http.put<Page>(this.url, page)
+    .subscribe(data => {
+      this.router.navigate(["page/" + data.id])
+    })
+  }
+
+  getPages(ids: string[]){
+    return this.http.head<[]>(this.url + `?ids=${ids.join(',')}`).toPromise()
   }
 
 }

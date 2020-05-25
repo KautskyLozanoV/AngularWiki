@@ -1,10 +1,10 @@
 <h1>{{ page?.title }}</h1>
 <div *ngIf="page?.id">
   <div>
-    <button mat-button color="primary">Edit</button>
+    <button mat-button [routerLink]="'/page/save/'+ page.id" color="primary">Edit</button>
     <button mat-button>View History</button>
   </div>
-  <app-markdown [text]="page.content"></app-markdown>
+  <app-markdown [text]="page.content" checkBrokenLinks="true"></app-markdown>
   <div class="img">
     <img [src]="page?.imagePath" [alt]="page?.title">
   </div>
