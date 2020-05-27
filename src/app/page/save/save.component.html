@@ -1,4 +1,4 @@
-<form *ngIf="page?.id" #pageForm="ngForm" (ngSubmit)="onSubmit()">
+<form #pageForm="ngForm" (ngSubmit)="onSubmit(pageForm)">
   <mat-form-field>
     <mat-label>Title</mat-label>
     <input matInput required #pageTitle="ngModel" [(ngModel)]="page.title" name="title">
@@ -6,16 +6,13 @@
   <br>
   <mat-form-field *ngIf="page.id">
     <mat-label>Change description</mat-label>
-    <input matInput #pageChangeDescription="ngModel" [(ngModel)]="page.changeDescription" name="change">
+    <input matInput required #pageChangeDescription="ngModel" [(ngModel)]="page.modifiedReason" name="change">
   </mat-form-field>
   <br>
   <textarea matInput required #pageContent="ngModel" class="variable-textarea" [(ngModel)]="page.content" name="content"></textarea>
   <app-markdown class="variable-binding" [text]="page.content"></app-markdown>
   <br>
+  <button type="button" mat-raised-button (click)="fileInput.click()">Add image</button>
+  <input hidden (change)="onImagePicked($event)" #fileInput type="file" id="file">
   <button mat-button>Save</button>
-
 </form>
-
-<mat-error *ngIf="!page?.id">
-  This page doesn't exist yet
-</mat-error>

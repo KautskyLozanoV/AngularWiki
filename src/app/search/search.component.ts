@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit {
   constructor(private pageSerivce: PageService) { }
 
   onSubmit(){
-    this.pageSerivce.searchPages(this.search).subscribe(data => {
+    this.pageSerivce.searchPages(this.search, null).subscribe(data => {
       this.results = data;
     });
   }

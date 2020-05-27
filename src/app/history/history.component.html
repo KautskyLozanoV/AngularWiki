@@ -1,1 +1,23 @@
-<p>history works!</p>
+<h1>{{title}}: History</h1>
+
+<table mat-table [dataSource]="history" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="changeDescription">
+    <th mat-header-cell *matHeaderCellDef> Change Description </th>
+    <td mat-cell *matCellDef="let element"> {{element.modifiedReason}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="timestamp">
+    <th mat-header-cell *matHeaderCellDef> Edited at </th>
+    <td mat-cell *matCellDef="let element"> {{element.timestamp | date:'dd/MM/yyyy HH:mm:ss'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="diff">
+    <th mat-header-cell *matHeaderCellDef> Diff </th>
+    <td mat-cell *matCellDef="let element"> <a [routerLink]="'/page/' + element.id + '/diff/' + element.timestamp + ''">Diff</a> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+

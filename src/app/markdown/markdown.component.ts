@@ -12,7 +12,7 @@ import { PageService } from '../page/page.service';
 
 @Component({
   selector: 'app-markdown',
-  template: '<pre [innerHTML]="data"></pre>',
+  template: '<div [innerHTML]="data"></div>',
   encapsulation: ViewEncapsulation.None,
   styles: [`.new { color: #ba0000 }`]
 })
@@ -42,8 +42,8 @@ export class MarkdownComponent implements OnChanges {
       link(src) {
         const match = src.match(/^\[\[((\w+\s*)+)\]\]/)
         if (match) {
-          const text = match[1].trim();
-          const id = text.replace(' ', '_');
+          const text: string = match[1].trim();
+          const id: string = text.replace(' ', '_').toLowerCase();
           return {
             type: 'link',
             raw: match[0],
@@ -59,23 +59,22 @@ export class MarkdownComponent implements OnChanges {
     this.md = marked;
   }
 
-  markdownToSafeHtml(value: string): SafeHtml {
+  async markdownToSafeHtml(value: string): Promise<SafeHtml> {
     const html = this.md(value);
     let safeHtml = DOMPurify.sanitize(html);
     if (this.checkBrokenLinks) {
-      this.handleBrokenLinks(safeHtml).then(html => {
-        return this.sanitizer.bypassSecurityTrustHtml(safeHtml);
-      });
+      const safe = await this.handleBrokenLinks(safeHtml);
+        return this.sanitizer.bypassSecurityTrustHtml(safe);
     } else {
       return this.sanitizer.bypassSecurityTrustHtml(safeHtml);
     }
   }
 
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+  async ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (const propName in changes) {
       if (propName === 'text') {
         const value = changes[propName].currentValue;
-        this.data = this.markdownToSafeHtml(value ?? '');
+        this.data = await this.markdownToSafeHtml(value ?? '');
       }
     }
   }
@@ -90,15 +89,15 @@ export class MarkdownComponent implements OnChanges {
       ids.push(element.classList[1]);
     }
 
-    let data = await this.pageService.getPages(ids);
-    console.log(data)
-    for (let index = 0; index < data.length; index++) {
-      let element = data[index];
-      let brokenLink = parsedHtml.querySelector(`.${MarkdownComponent.InternalLink}.${element}`);
+    let pages = await this.pageService.searchPages(null, ids).toPromise();
+
+    const nonExistingIds = ids.filter(id=> pages.findIndex(page=> page.id.toLowerCase() === id) === -1)
+
+    for (const id of nonExistingIds) {
+      let brokenLink = parsedHtml.querySelector(`.${MarkdownComponent.InternalLink}.${id.toLowerCase()}`);
       brokenLink.classList.remove(MarkdownComponent.InternalLink);
       brokenLink.classList.add("new");
     }
-
     return parsedHtml.documentElement.innerHTML;
   }
 }

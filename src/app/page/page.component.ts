@@ -29,18 +29,9 @@ export class PageComponent implements OnInit, OnDestroy {
             title: id.replace('_', ' '),
             content: null,
             id: null,
-            imagePath: null,
-            changeDescription: null,
+            modifiedReason: null,
           };
         });
-      } else {
-        this.page = {
-          title: 'mock title',
-          content: 'mock content',
-          id: 'mockid',
-          imagePath: 'mock',
-          changeDescription: 'mock'
-        };
       }
     });
   }

@@ -6,8 +6,10 @@
   <button mat-button>Search</button>
 </form>
 
-<ul>
+<ul *ngIf="results.length">
   <li *ngFor="let page of results">
     <a [routerLink]="'/page/' + page.id">{{page.title}}</a>
   </li>
 </ul>
+
+<p *ngIf="!results.length && searchForm.submitted"> No results found </p>

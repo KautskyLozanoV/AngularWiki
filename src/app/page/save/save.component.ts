@@ -3,6 +3,8 @@ import { Page } from 'src/app/page.model';
 import { PageService } from '../page.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-save',
@@ -13,9 +15,9 @@ export class SaveComponent implements OnInit, OnDestroy {
   public page: Page;
   pageSub: Subscription;
 
-  constructor(private pageService: PageService, private route: ActivatedRoute) { }
+  constructor(private pageService: PageService, private route: ActivatedRoute, private http: HttpClient) { }
   ngOnDestroy(): void {
-    this.pageSub.unsubscribe();
+    this.pageSub?.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -29,8 +31,7 @@ export class SaveComponent implements OnInit, OnDestroy {
               title: id.replace('_', ' '),
               content: null,
               id: null,
-              imagePath: null,
-              changeDescription: null,
+              modifiedReason: null,
             };
           });
       }
@@ -38,10 +39,25 @@ export class SaveComponent implements OnInit, OnDestroy {
 
   }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
+    if (form.invalid)
+      return;
     if (this.page.id)
       this.pageService.updatePage(this.page);
     else
       this.pageService.addPage(this.page);
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    // upload
+    const postData = new FormData();
+    const name = file.name.replace(' ', '_');
+    postData.append('image', file, name)
+    this.http.post("http://localhost:3000/api/images/", postData).subscribe((img: any) => {
+      const title = name.substring(0, name.lastIndexOf('.'));
+
+      this.page.content += `\n\n![alt text][${title}]\n\n[${title}]: ${img.imagePath}`;
+    })
   }
 }

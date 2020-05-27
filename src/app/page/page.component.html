@@ -1,15 +1,17 @@
 <h1>{{ page?.title }}</h1>
-<div *ngIf="page?.id">
-  <div>
-    <button mat-button [routerLink]="'/page/save/'+ page.id" color="primary">Edit</button>
-    <button mat-button>View History</button>
-  </div>
-  <app-markdown [text]="page.content" checkBrokenLinks="true"></app-markdown>
-  <div class="img">
-    <img [src]="page?.imagePath" [alt]="page?.title">
-  </div>
-</div>
+<mat-card>
 
-<mat-error *ngIf="!page?.id">
-  This page doesn't exist yet
-</mat-error>
+  <div *ngIf="page?.id">
+    <div>
+      <button mat-button mat-raised-button [routerLink]="'/page/save/'+ page.id" color="primary">Edit</button>
+      <button mat-button mat-raised-button [routerLink]="'/page/'+ page.id + '/history'" [queryParams]="{title: page.title}">View
+        History</button>
+    </div>
+    <app-markdown [text]="page.content" checkBrokenLinks="true"></app-markdown>
+  </div>
+
+  <mat-error *ngIf="!page?.id">
+    This page doesn't exist yet
+  </mat-error>
+
+</mat-card>
