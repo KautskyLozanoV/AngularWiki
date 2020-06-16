@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-save',
@@ -54,7 +55,7 @@ export class SaveComponent implements OnInit, OnDestroy {
     const postData = new FormData();
     const name = file.name.replace(' ', '_');
     postData.append('image', file, name)
-    this.http.post("http://localhost:3000/api/images/", postData).subscribe((img: any) => {
+    this.http.post(environment.apiUrl + "images/", postData).subscribe((img: any) => {
       const title = name.substring(0, name.lastIndexOf('.'));
 
       this.page.content += `\n\n![alt text][${title}]\n\n[${title}]: ${img.imagePath}`;

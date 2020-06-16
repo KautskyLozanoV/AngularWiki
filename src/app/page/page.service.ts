@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Page } from '../page.model';
-import { version } from 'punycode';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PageService {
-  private url = "http://localhost:3000/api/pages/";
+  private url = environment.apiUrl + "pages/";
 
   constructor(private http: HttpClient, private router: Router) { }
 

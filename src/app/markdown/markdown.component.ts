@@ -9,6 +9,7 @@ import {
   DomSanitizer, SafeHtml
 } from '@angular/platform-browser';
 import { PageService } from '../page/page.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-markdown',
@@ -47,7 +48,7 @@ export class MarkdownComponent implements OnChanges {
           return {
             type: 'link',
             raw: match[0],
-            href: "http://localhost:4200/page/" + id,
+            href:  environment.staticServerUrl + "/page/" + id,
             title: `${text}" class="${MarkdownComponent.InternalLink} ${id}"`,
             text: text
           }
